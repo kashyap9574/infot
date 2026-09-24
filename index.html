@@ -3280,7 +3280,7 @@ const celebrate = el => { if (fx && el) fx.celebrate(el); };
   }
   /* anything else goes to the AI: Claude inside the Claude viewer, the Nexus server on our own site */
   const inViewer = !!(window.claude && typeof window.claude.use === 'function');
-  const NEXI_API = 'https://bot.nexusprivatelimited.com/nexi';
+  const NEXI_API = 'https://api.nexusprivatelimited.com/nexi';
   const canApi = !inViewer && /^https?:$/.test(location.protocol);
   const GO = ['services', 'nexi', 'work', 'play', 'process', 'quote', 'voices', 'about', 'contact', 'top'];
   const hist = [];
@@ -3578,8 +3578,8 @@ ${JSON.stringify(Object.fromEntries(keys.map((k, i) => [i, k])))}`;
   }
   const loadCache = id => { try { const c = JSON.parse(store.get('nexus-tr:' + id) || 'null'); return c && c.v === VER ? (c.d || {}) : null; } catch (e) { return null; } };
   const saveCache = (id, d) => store.set('nexus-tr:' + id, JSON.stringify({ v: VER, d }));
-  /* Nexus translate server (Node-RED + Groq) for languages we have not translated ourselves, on our own website */
-  const TR_API = 'https://bot.nexusprivatelimited.com/translate';
+  /* Nexus API (Cloudflare Worker + Groq) for languages we have not translated ourselves, on our own website */
+  const TR_API = 'https://api.nexusprivatelimited.com/translate';
   const useApi = !inClaude && /^https?:$/.test(location.protocol);
   const fail = code => { const x = new Error(code); x.code = code; return x; };
   const apiEngine = {
